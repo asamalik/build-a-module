@@ -1,0 +1,29 @@
+
+module my-mock-in-container 1.0;
+
+require {
+	type user_home_t;
+	type container_t;
+	type tmpfs_t;
+	type container_file_t;
+	type devpts_t;
+	type container_t;
+	type proc_t;
+	type sysfs_t;
+	class dir write;
+	class blk_file { create unlink };
+	class filesystem mount;
+	class file { append create ioctl open read setattr write };
+	class dir { add_name write };
+}
+
+#============= container_t ==============
+allow container_t container_file_t:blk_file { create unlink };
+allow container_t devpts_t:dir write;
+allow container_t devpts_t:filesystem mount;
+allow container_t proc_t:filesystem mount;
+allow container_t sysfs_t:filesystem mount;
+allow container_t tmpfs_t:dir write;
+allow container_t tmpfs_t:filesystem mount;
+allow container_t user_home_t:dir { add_name write };
+allow container_t user_home_t:file { append create ioctl open read setattr write };
