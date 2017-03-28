@@ -47,7 +47,17 @@ allow this access for now by executing:
 
 ```
 
-While we work on a fix for this issue, please set SELinux to permissive mode by executing `setenforce 0` before running the script. Don't forget changing it back after you're done: `setenforce 1`
+One way to make this work is to set SELinux to permissive mode by executing `setenforce 0` (don't forget changing it back after you're done: `setenforce 1`).
+
+Another it to use a local policy package that permits the required access. Use these commands to build and install it:
+
+```
+checkmodule -M -m -o files/my-mock-in-container.mod files/my-mock-in-container-fedora-25.te
+semodule_package -o files/my-mock-in-container.pp -m files/my-mock-in-container.mod
+sudo semodule -i files/my-mock-in-container.pp
+```
+
+The type enforcement file used as a source was generated on Fedora 25, your mileage may vary on other distribution versions.
 
 ## Requirements
 

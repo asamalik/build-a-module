@@ -36,5 +36,5 @@ if [ $? -eq 0 -a "$getenforce_out" != "Disabled" ]; then
     label_flag=:z
 fi
 
-docker run --cap-add=SYS_ADMIN --rm -it -v "${module_repo}:/source/${module_name}${label_flag}" -v "${results_dir}:/results${label_flag}" asamalik/build-module /usr/bin/mbs-manager build_module_locally "file:////source/${module_name}?#master"
+docker run --cap-add=SYS_ADMIN --rm -it -v "${module_repo}:/source/${module_name}${label_flag}" -v "${results_dir}:/results${label_flag}" asamalik/build-module /usr/bin/mbs-manager build_module_locally "file:///source/${module_name}?#master"
 
